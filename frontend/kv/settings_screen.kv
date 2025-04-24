@@ -1,0 +1,89 @@
+<SettingsScreen>:
+    name: "settings"
+
+    BoxLayout:
+        orientation: "vertical"
+        spacing: 20
+
+        # Title at the top
+        Label:
+            padding: dp(20)
+            text: "Settings"
+            font_size: 30
+            bold: True
+            halign: "center"
+            size_hint_y: None
+            height: dp(120)
+            color: 0.2, 0.4, 1, 1
+
+        # Center the buttons in the middle of the screen
+        AnchorLayout:
+            anchor_x: "center"
+            anchor_y: "center"
+
+            BoxLayout:
+                orientation: "vertical"
+                spacing: dp(20)
+                size_hint: None, None
+                size: 200, 150
+
+                Button:
+                    background_color: 0.2, 0.4, 1, 0.9  
+                    size_hint: None, None
+                    size: 200, 50
+                    on_release: root.logout()
+                    text: "Log Out"
+
+                Button:
+                    background_color: 0.2, 0.4, 1, 0.7  
+                    size_hint: None, None
+                    size: 200, 50
+                    on_release: root.show_confirmation_dialog()
+                    text: "Delete All Data"
+                    
+
+        # Bottom app bar area (simulated using FloatLayout):
+        FloatLayout:
+            size_hint_y: None
+            height: dp(120)
+
+            # Blue bottom bar with home and calendar icons:
+            MDBoxLayout:
+                orientation: "horizontal"
+                size_hint_y: None
+                height: dp(56)
+                md_bg_color: 0.9, 0.9, 0.9, 1 
+                pos_hint: {"x": 0, "y": 0}
+                padding: dp(20)
+                spacing: dp(20)
+                MDIconButton:
+                    icon: "home"
+                    user_font_size: "24sp"
+                    on_release: app.root.current = "home"
+                Widget:
+                MDIconButton:
+                    icon: "calendar"
+                    user_font_size: "24sp"
+                    on_release: app.root.current = "calendar"
+
+            # Floating action button (FAB) overlaid in the center:
+            AnchorLayout:
+                anchor_x: "center"
+                anchor_y: "top"
+                size_hint: None, None
+                size: dp(56), dp(56)
+                pos_hint: {"center_x": 0.5, "y": 0.25}
+                MDIconButton:
+                    icon: "plus"
+                    text_color: 1, 1, 1, 1
+                    user_font_size: "24sp"
+                    size_hint: None, None
+                    size: dp(56), dp(56)
+                    md_bg_color: 0.2, 0.4, 1, 1 # BLUE
+                    on_release: app.root.current = "add_prescription"
+                    canvas.before:
+                        Color:
+                            rgba: self.md_bg_color
+                        Ellipse:
+                            pos: self.pos
+                            size: self.size

@@ -1,0 +1,153 @@
+<CalendarScreen>:
+    name: "calendar"
+
+    MDBoxLayout:
+        orientation: "vertical"
+
+        # 🌟 Custom Header
+        MDBoxLayout:
+            orientation: "horizontal"
+            size_hint_y: None
+            height: "50dp"
+            padding: "8dp", "4dp"
+            spacing: "4dp"
+            md_bg_color: 1, 1, 1, 1
+
+            MDLabel:
+                text: "[b][color=2a7bf6]Prescription Calendar[/color][/b]"
+                markup: True
+                font_size: "40sp"
+                bold: True
+                theme_text_color: "Custom"
+                text_color: 0.2, 0.4, 1, 1
+                halign: "center"
+                valign: "middle"
+                text_size: self.size
+
+        MDDivider:
+            height: "1dp"
+            md_bg_color: 0.8, 0.8, 0.8, 1
+
+        # Month and Year Navigation
+        MDBoxLayout:
+            orientation: "horizontal"
+            size_hint_y: None
+            height: dp(50)
+            padding: dp(10)
+            spacing: dp(10)
+            MDIconButton:
+                icon: "chevron-left"
+                on_release: root.change_month(-1)
+            MDLabel:
+                id: month_label
+                text: "Month Year"
+                theme_text_color: "Primary"
+                halign: "center"
+                font_size: "20sp"
+                bold: True
+            MDIconButton:
+                icon: "chevron-right"
+                on_release: root.change_month(1)
+
+        # Day Labels Grid
+        GridLayout:
+            cols: 7
+            size_hint_y: 0.1
+            height: dp(30)  # Fixed height for day labels
+            spacing: dp(5)
+            padding: dp(10)
+            Label:
+                text: "Sun"
+                halign: "center"
+                bold: True
+                color: 0.2, 0.4, 1, 1
+            Label:
+                text: "Mon"
+                halign: "center"
+                bold: True
+                color: 0.2, 0.4, 1, 1
+            Label:
+                text: "Tue"
+                halign: "center"
+                bold: True
+                color: 0.2, 0.4, 1, 1
+            Label:
+                text: "Wed"
+                halign: "center"
+                bold: True
+                color: 0.2, 0.4, 1, 1
+            Label:
+                text: "Thu"
+                halign: "center"
+                bold: True
+                color: 0.2, 0.4, 1, 1
+            Label:
+                text: "Fri"
+                halign: "center"
+                bold: True
+                color: 0.2, 0.4, 1, 1
+            Label:
+                text: "Sat"
+                halign: "center"
+                bold: True
+                color: 0.2, 0.4, 1, 1
+
+
+        # Calendar Days Grid
+        GridLayout:
+            id: calendar_grid
+            cols: 7
+            size_hint_y: 0.7
+            spacing: dp(5)
+            padding: dp(10)
+
+        ScrollView:
+            MDList:
+                id: meds_list
+
+        # Bottom app bar area (simulated using FloatLayout):
+        FloatLayout:
+            size_hint_y: 0.2
+            height: dp(120)
+
+            # Blue bottom bar with home and calendar icons:
+            MDBoxLayout:
+                orientation: "horizontal"
+                size_hint_y: None
+                height: dp(80)
+                md_bg_color: 0.9, 0.9, 0.9, 1
+                pos_hint: {"x": 0, "y": 0}
+                padding: dp(20)
+                spacing: dp(20)
+                MDIconButton:
+                    icon: "home"
+                    user_font_size: "24sp"
+                    on_release: app.root.current = "home"
+                Widget:
+                MDIconButton:
+                    icon: "calendar"
+                    user_font_size: "24sp"
+                    on_release: app.root.current = "calendar"
+
+            # Floating action button (FAB) overlaid in the center:
+            AnchorLayout:
+                anchor_x: "center"
+                anchor_y: "top"
+                size_hint: None, None
+                size: dp(56), dp(56)
+                pos_hint: {"center_x": 0.5, "y": 0.25}
+
+                MDIconButton:
+                    icon: "plus"
+                    text_color: (1, 1, 1, 1)
+                    user_font_size: "24sp"
+                    size_hint: None, None
+                    size: dp(56), dp(56)
+                    md_bg_color: (0.2, 0.6, 1, 1) # BLUE
+                    on_release: app.root.current = "add_prescription"
+                    canvas.before:
+                        Color:
+                            rgba: self.md_bg_color
+                        Ellipse:
+                            pos: self.pos
+                            size: self.size

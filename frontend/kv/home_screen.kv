@@ -1,0 +1,188 @@
+#:import dp kivy.metrics.dp
+#:import MDIconButton kivymd.uix.button.MDIconButton
+#:import MDIcon kivymd.uix.label.MDIcon
+
+
+<MyRefillButton@Button>:
+    size_hint: None, None
+    size: dp(80), dp(32)
+    background_normal: ""   # Disable the default background image
+    background_color: 0.2, 0.6, 1, 1  # Default blue for "Refill" state
+    color: 1, 1, 1, 1       # Text color white
+    font_size: "14sp"
+    # Draw a rounded rectangle as the background
+    canvas.before:
+        Color:
+            rgba: self.background_color
+        RoundedRectangle:
+            pos: self.pos
+            size: self.size
+            radius: [dp(10)]
+            
+<MedicationCard@MDCard>:
+    # Custom medication card properties (set from Python)
+    med_name: ""
+    total_supply: 0
+    first_reminder_date: ""
+    icon_color: [0, 0, 0, 1]
+    icon_name: ""
+    refill_status: False
+    radius: [dp(8)]
+    padding: dp(8)
+    md_bg_color: 0.9, 0.9, 0.9, 1
+    BoxLayout:
+        orientation: "horizontal"
+        spacing: dp(8)
+        # Left colored area with icon:
+        BoxLayout:
+            size_hint_x: None
+            width: dp(60)
+            canvas.before:
+                Color:
+                    rgba: root.icon_color
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+            MDIcon:
+                id: left_icon
+                icon: root.icon_name
+                halign: "center"
+                valign: "center"
+                size_hint: None, None
+                padding: dp(10)
+                size: dp(40), dp(40)
+                pos_hint: {"center_x": 0.6, "center_y": 0.5}
+                theme_text_color: "Custom"
+                text_color: 1, 1, 1, 1
+
+        # Middle content area:
+        BoxLayout:
+            orientation: "vertical"
+            spacing: dp(4)
+            size_hint_x: 0.7
+            MDLabel:
+                text: root.med_name
+                font_size: "24sp"
+                halign: "left"
+            MDLabel:
+                text: "Supply: " + str(root.total_supply) + " - Day"
+                halign: "left"
+                theme_text_color: "Secondary"
+            BoxLayout:
+                orientation: "horizontal"
+                size_hint_y: None
+                height: dp(20)
+                spacing: dp(4)
+                MDIcon:
+                    icon: "bell"
+                    size_hint_x: None
+                    width: dp(20)
+                    halign: "left"
+                    theme_text_color: "Secondary"
+                MDLabel:
+                    text: root.first_reminder_date
+                    halign: "left"
+                    theme_text_color: "Secondary"
+        # Right side area:
+        BoxLayout:
+            orientation: "vertical"
+            padding: [0, dp(4), 0, dp(4)]
+            size_hint_x: 0.35
+
+            Widget:
+            MyRefillButton:
+                id: refill_button
+                text: "Refill"
+                on_release: root.toggle_refill_status()
+                radius: [10]
+                md_bg_color: 
+
+<HomeScreen>:
+    name: "home"
+
+    MDBoxLayout:
+        orientation: "vertical"
+        title: ""
+
+        # Top header with centered title 
+        BoxLayout: 
+            size_hint_y: None 
+            height: dp(56) 
+            padding: dp(10) 
+            spacing: dp(10) 
+            md_bg_color: 0.9, 0.9, 0.9, 1  # Light gray background 
+ 
+            # Centered "Welcome to RefillRadar" text 
+            MDLabel: 
+                text: "Welcome to [i][color=2a7bf6]RefillRadar[/color][/i]" 
+                markup: True 
+                font_size: "40sp"
+                bold: True 
+                halign: "left" 
+                valign: "middle" 
+                size_hint: 1, 1  # Allow the label to fill the parent layout 
+ 
+            # Cog icon on the right 
+            MDIconButton: 
+                icon: "cog" 
+                user_font_size: "24sp" 
+                pos_hint: {"center_y": 0.5} 
+                on_release: app.root.current = "settings" 
+            
+
+        # Scrollable area for medication cards:
+        ScrollView:
+            MDBoxLayout:
+                id: prescription_list
+                orientation: "vertical"
+                size_hint_y: None
+                height: self.minimum_height
+                padding: dp(10)
+                spacing: dp(10)
+
+        # Bottom app bar area (simulated using FloatLayout):
+        FloatLayout:
+            size_hint_y: 0.2
+            height: dp(120)
+
+            # Blue bottom bar with home and calendar icons:
+            MDBoxLayout:
+                orientation: "horizontal"
+                size_hint_y: None
+                height: dp(80)
+                md_bg_color: 0.9, 0.9, 0.9, 1
+                pos_hint: {"x": 0, "y": 0}
+                padding: dp(20)
+                spacing: dp(20)
+                MDIconButton:
+                    icon: "home"
+                    user_font_size: "24sp"
+                    on_release: app.root.current = "home"
+                Widget:
+                MDIconButton:
+                    icon: "calendar"
+                    user_font_size: "24sp"
+                    on_release: app.root.current = "calendar"
+
+            # Floating action button (FAB) overlaid in the center:
+            AnchorLayout:
+                anchor_x: "center"
+                anchor_y: "top"
+                size_hint: None, None
+                size: dp(56), dp(56)
+                pos_hint: {"center_x": 0.5, "y": 0.25}
+
+                MDIconButton:
+                    icon: "plus"
+                    text_color: (1, 1, 1, 1)
+                    user_font_size: "24sp"
+                    size_hint: None, None
+                    size: dp(56), dp(56)
+                    md_bg_color: (0.2, 0.6, 1, 1) # BLUE
+                    on_release: app.root.current = "add_prescription"
+                    canvas.before:
+                        Color:
+                            rgba: self.md_bg_color
+                        Ellipse:
+                            pos: self.pos
+                            size: self.size

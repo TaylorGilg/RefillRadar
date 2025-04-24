@@ -1,0 +1,655 @@
+<MedicationInformationScreen>:
+    MDBoxLayout:
+        orientation: "vertical"
+        md_bg_color: 1, 1, 1, 1  # white background
+
+        # 🌟 Custom Header
+        MDBoxLayout:
+            orientation: "horizontal"
+            size_hint_y: None
+            height: "50dp"
+            padding: "8dp", "4dp"
+            spacing: "4dp"
+            md_bg_color: 1, 1, 1, 1
+
+            MDIconButton:
+                icon: "arrow-left"
+                icon_color: 0, 0, 0, 1
+                on_release: root.manager.current = "home"
+                size_hint_x: None
+                width: "40dp"
+
+            MDLabel:
+                text: "[b][color=2a7bf6]Prescription Info[/color][/b]"
+                markup: True
+                font_size: "40sp"
+                bold: True
+                theme_text_color: "Custom"
+                text_color: 0.2, 0.4, 1, 1
+
+        MDDivider:
+            height: "1dp"
+            md_bg_color: 0.8, 0.8, 0.8, 1
+
+        # Scrollable Content
+        ScrollView:
+            do_scroll_x: False
+            do_scroll_y: True
+
+            MDBoxLayout:
+                orientation: "vertical"
+                size_hint_y: None
+                height: self.minimum_height
+                spacing: "8dp"
+                padding: "8dp"
+                pos_hint: {"center_x": 0.5}
+
+                # ✨ Category section
+                MDBoxLayout:
+                    orientation: "vertical"
+                    size_hint_y: None
+                    height: self.minimum_height
+                    padding: "8dp", "12dp"
+                    spacing: "6dp"
+                    md_bg_color: 1, 1, 1, 1
+
+                    MDLabel:
+                        text: "Category"
+                        bold: True
+                        font_size: "18sp"
+                        theme_text_color: "Primary"
+                        size_hint_y: None
+                        height: self.texture_size[1]
+                        padding: "4dp", "0dp"
+
+                    # 💊 Scrollable Horizontal Buttons
+                    ScrollView:
+                        do_scroll_x: True
+                        do_scroll_y: False
+                        size_hint_y: None
+                        height: "55dp"
+
+                        MDBoxLayout:
+                            id: medication_buttons
+                            orientation: "horizontal"
+                            spacing: "10dp"
+                            padding: "4dp"
+                            size_hint_x: None
+                            width: self.minimum_width
+                            height: self.minimum_height
+
+                            MDIconButton:
+                                id: icon_button
+                                icon_value: 0
+                                icon: ""
+                                style: "outlined"
+                                theme_icon_color: "Custom"
+                                icon_color: 0, 0, 0.5, 1
+                                user_font_size: "32sp"
+
+                    MDDivider:
+                        height: "1dp"
+                        size_hint_x: 1
+                        md_bg_color: 0.8, 0.8, 0.8, 1
+
+                    # ✨ Color label
+                    MDLabel:
+                        text: "Color"
+                        bold: True
+                        font_size: "18sp"
+                        theme_text_color: "Primary"
+                        size_hint_y: None
+                        height: self.texture_size[1]
+                        padding: "4dp", "0dp"
+
+                    # 🎨 Scrollable Color Buttons
+                    ScrollView:
+                        do_scroll_x: True
+                        do_scroll_y: False
+                        size_hint_y: None
+                        height: "45dp"
+
+                        MDBoxLayout:
+                            id: color_buttons
+                            orientation: "horizontal"
+                            spacing: "10dp"
+                            padding: "4dp"
+                            size_hint_x: None
+                            width: self.minimum_width
+                            height: self.minimum_height
+
+                            MDFloatLayout:
+                                id: color_button
+                                size_hint: None, None
+                                size: "32dp", "32dp"
+                                md_bg_color: 0, 0, 0, 0       
+                                radius: [50]  # Ensures full circular button
+
+                                MDIconButton:
+                                    color_value: 1
+                                    style: "outlined"
+                                    icon: "checkbox-blank-circle"  # keep the button clickable
+                                    theme_icon_color: "Custom"
+                                    icon_color: 0, 0, 0, 0  # Fully transparent icon
+                                    size_hint: None, None
+                                    size: "32dp", "32dp"
+                                    pos_hint: {"center_x": 0.5, "center_y": 0.5}
+
+                MDDivider:
+                    height: "1dp"
+                    size_hint_x: 1
+                    md_bg_color: 0.8, 0.8, 0.8, 1
+
+                # 💊 Medicine Name Field
+                MDBoxLayout:
+                    orientation: "vertical"
+                    size_hint_y: None
+                    height: self.minimum_height
+                    padding: "8dp", "4dp"
+                    spacing: "4dp"
+
+                    MDLabel:
+                        text: "Medication Name"
+                        bold: True
+                        font_size: "18sp"
+                        theme_text_color: "Primary"
+                        size_hint_y: None
+                        height: self.texture_size[1]
+                        halign: "left"
+
+                    MDTextField:
+                        id: med_name_input
+                        disabled: True
+                        mode: "outlined"
+                        hint_text: "Type or select a medication"
+                        size_hint_y: None
+                        height: "40dp"
+
+                # 🌟 Dosage Section
+                MDBoxLayout:
+                    orientation: "vertical"
+                    size_hint_y: None
+                    height: self.minimum_height
+                    spacing: "4dp"
+                    padding: "8dp", "4dp"
+
+                    MDLabel:
+                        text: "Dosage"
+                        font_size: "18sp"
+                        bold: True
+                        theme_text_color: "Primary"
+                        size_hint_y: None
+                        height: self.texture_size[1]
+
+                    # Horizontal layout with scrolling for dosage controls
+                    ScrollView:
+                        do_scroll_x: True
+                        do_scroll_y: False
+                        size_hint_y: None
+                        height: "50dp"
+                        
+                        MDBoxLayout:
+                            orientation: "horizontal"
+                            size_hint_x: None
+                            width: self.minimum_width
+                            height: self.minimum_height
+                            spacing: "8dp"
+                            padding: "4dp"
+
+                            MDLabel:
+                                text: "Take"
+                                font_size: "16sp"
+                                theme_text_color: "Primary"
+                                size_hint_x: None
+                                width: "40dp"
+
+                            MDButton:
+                                id: dosage_dropdown
+                                style: "tonal"
+                                radius: [20]
+                                size_hint_x: None
+                                width: "50dp"
+
+                                MDButtonText:
+                                    id: dosage_label
+                                    text: ""
+
+                            MDLabel:
+                                text: "every"
+                                font_size: "16sp"
+                                theme_text_color: "Primary"
+                                size_hint_x: None
+                                width: "50dp"
+
+                            MDButton:
+                                id: dosage_occurrence_dropdown
+                                style: "tonal"
+                                radius: [20]
+                                size_hint_x: None
+                                width: "50dp"
+
+                                MDButtonText:
+                                    id: dosage_occurrence_label
+                                    text: ""
+
+                            MDButton:
+                                id: dosage_unit_dropdown
+                                style: "tonal"
+                                radius: [20]
+                                size_hint_x: None
+                                width: "80dp"
+
+                                MDButtonText:
+                                    id: dosage_unit_label
+                                    text: ""
+
+                # 🌟 Supply Section
+                MDBoxLayout:
+                    orientation: "vertical"
+                    size_hint_y: None
+                    height: self.minimum_height
+                    spacing: "4dp"
+                    padding: "8dp", "4dp"
+
+                    MDLabel:
+                        text: "Supply"
+                        font_size: "18sp"
+                        bold: True
+                        theme_text_color: "Primary"
+                        size_hint_y: None
+                        height: self.texture_size[1]
+
+                    # Scrollable container for supply buttons
+                    ScrollView:
+                        do_scroll_x: True
+                        do_scroll_y: False
+                        size_hint_y: None
+                        height: "50dp"
+
+                        MDBoxLayout:
+                            id: supply_button_container
+                            orientation: "horizontal"
+                            spacing: "8dp"
+                            size_hint_x: None
+                            width: self.minimum_width
+                            height: self.minimum_height
+
+                            MDLabel:
+                                id: supply_label
+                                text: ""
+                                font_size: "16sp"
+                                theme_text_color: "Primary"
+                                size_hint_x: None
+                                width: "40dp"
+
+                    
+                # ⏰ Start Date Section
+                MDBoxLayout:
+                    orientation: "vertical"
+                    size_hint_y: None
+                    height: self.minimum_height
+                    spacing: "4dp"
+                    padding: "8dp", "4dp"
+                    
+                    # Date label with icon
+                    MDBoxLayout:
+                        orientation: "horizontal"
+                        size_hint_y: None
+                        height: "30dp"
+                        spacing: "6dp"
+                        
+                        MDIconButton:
+                            icon: "calendar"
+                            theme_icon_color: "Secondary"
+                            size_hint_x: None
+                            width: "20dp"
+                            
+                        MDLabel:
+                            text: "Start Date"
+                            font_size: "18sp"
+                            bold: True
+                            theme_text_color: "Primary"
+                            size_hint_y: None
+                            height: self.texture_size[1]
+
+                    # Scrollable date controls
+                    ScrollView:
+                        do_scroll_x: True
+                        do_scroll_y: False
+                        size_hint_y: None
+                        height: "50dp"
+                        
+                        MDBoxLayout:
+                            orientation: "horizontal"
+                            size_hint_x: None
+                            width: self.minimum_width
+                            height: self.minimum_height
+                            spacing: "4dp"
+
+                            MDButton:
+                                id: start_day_dropdown
+                                style: "tonal"
+                                radius: [20]
+                                size_hint_x: None
+                                width: "70dp"
+
+                                MDButtonText:
+                                    id: start_day_label
+                                    text: "Day"
+
+                            MDLabel:
+                                text: "/"
+                                bold: True
+                                theme_text_color: "Primary"
+                                size_hint_x: None
+                                width: "10dp"
+                                halign: "center"
+
+                            MDButton:
+                                id: start_month_dropdown
+                                style: "tonal"
+                                radius: [20]
+                                size_hint_x: None
+                                width: "100dp"
+
+                                MDButtonText:
+                                    id: start_month_label
+                                    text: "Month"
+
+                            MDLabel:
+                                text: "/"
+                                bold: True
+                                theme_text_color: "Primary"
+                                size_hint_x: None
+                                width: "10dp"
+                                halign: "center"
+
+                            MDButton:
+                                id: start_year_dropdown
+                                style: "tonal"
+                                radius: [20]
+                                size_hint_x: None
+                                width: "70dp"
+
+                                MDButtonText:
+                                    id: start_year_label
+                                    text: "Year"
+
+                # ⏰ Start Time Section
+                MDBoxLayout:
+                    orientation: "vertical"
+                    size_hint_y: None
+                    height: self.minimum_height
+                    spacing: "4dp"
+                    padding: "8dp", "4dp"
+                    
+                    # Time label with icon
+                    MDBoxLayout:
+                        orientation: "horizontal"
+                        size_hint_y: None
+                        height: "30dp"
+                        spacing: "6dp"
+                        
+                        MDIconButton:
+                            icon: "clock"
+                            theme_icon_color: "Secondary"
+                            size_hint_x: None
+                            width: "20dp"
+                            
+                        MDLabel:
+                            text: "Start Time"
+                            font_size: "18sp"
+                            bold: True
+                            theme_text_color: "Primary"
+                            size_hint_y: None
+                            height: self.texture_size[1]
+
+                    # Scrollable time controls
+                    ScrollView:
+                        do_scroll_x: True
+                        do_scroll_y: False
+                        size_hint_y: None
+                        height: "50dp"
+                        
+                        MDBoxLayout:
+                            orientation: "horizontal"
+                            size_hint_x: None
+                            width: self.minimum_width
+                            height: self.minimum_height
+                            spacing: "4dp"
+
+                            MDButton:
+                                id: hour_dropdown
+                                style: "tonal"
+                                radius: [20]
+                                size_hint_x: None
+                                width: "70dp"
+
+                                MDButtonText:
+                                    id: hour_label
+                                    text: "HOUR"
+
+                            MDLabel:
+                                text: ":"
+                                bold: True
+                                size_hint_x: None
+                                width: "10dp"
+                                halign: "center"
+
+                            MDButton:
+                                id: minute_dropdown
+                                style: "tonal"
+                                radius: [20]
+                                size_hint_x: None
+                                width: "80dp"
+
+                                MDButtonText:
+                                    id: minute_label
+                                    text: "MINUTE"
+
+                            MDButton:
+                                id: ampm_dropdown
+                                style: "tonal"
+                                radius: [20]
+                                size_hint_x: None
+                                width: "70dp"
+
+                                MDButtonText:
+                                    id: ampm_label
+                                    text: "AM/PM"
+
+                MDDivider:
+                    height: "1dp"
+                    size_hint_x: 1
+                    md_bg_color: 0.8, 0.8, 0.8, 1
+
+                # Reminders Section
+                MDBoxLayout:
+                    orientation: "vertical"
+                    size_hint_y: None
+                    height: self.minimum_height
+                    spacing: "4dp"
+                    padding: "8dp", "4dp"
+
+                    MDLabel:
+                        text: "Reminders"
+                        bold: True
+                        font_size: "18sp"
+                        theme_text_color: "Primary"
+                        size_hint_y: None
+                        height: self.texture_size[1]
+
+                    # First Row - Reminder Time Before Start Date
+                    ScrollView:
+                        do_scroll_x: True
+                        do_scroll_y: False
+                        size_hint_y: None
+                        height: "50dp"
+                        
+                        MDBoxLayout:
+                            orientation: "horizontal"
+                            size_hint_x: None
+                            width: self.minimum_width
+                            height: self.minimum_height
+                            spacing: "8dp"
+
+                            MDButton:
+                                id: reminder_prior_num_dropdown
+                                style: "tonal"
+                                radius: [20]
+                                size_hint_x: None
+                                width: "50dp"
+
+                                MDButtonText:
+                                    id: reminder_prior_label
+                                    text: ""
+
+                            MDButton:
+                                id: reminder_prior_unit
+                                style: "tonal"
+                                radius: [20]
+                                size_hint_x: None
+                                width: "80dp"
+
+                                MDButtonText:
+                                    id: reminder_prior_unit_label
+                                    text: ""
+
+                            MDLabel:
+                                text: "prior to last day"
+                                font_size: "16sp"
+                                theme_text_color: "Primary"
+                                size_hint_x: None
+                                width: "120dp"
+
+                    # Second Row - Repeat Reminders
+                    MDLabel:
+                        text: "Repeat Reminder(s)"
+                        font_size: "16sp"
+                        bold: True
+                        theme_text_color: "Primary"
+                        size_hint_y: None
+                        height: "30dp"
+
+                    ScrollView:
+                        do_scroll_x: True
+                        do_scroll_y: False
+                        size_hint_y: None
+                        height: "50dp"
+                        
+                        MDBoxLayout:
+                            orientation: "horizontal"
+                            spacing: "8dp"
+                            size_hint_x: None
+                            width: self.minimum_width
+                            height: self.minimum_height
+
+                            MDButton:
+                                id: repeat_dropdown
+                                style: "tonal"
+                                radius: [20]
+                                size_hint_x: None
+                                width: "50dp"
+
+                                MDButtonText:
+                                    id: repeat_label
+                                    text: ""
+
+                            MDLabel:
+                                text: "every"
+                                font_size: "16sp"
+                                theme_text_color: "Primary"
+                                size_hint_x: None
+                                width: "45dp"
+                                halign: "center"
+
+                            MDButton:
+                                id: repeat2_dropdown
+                                style: "tonal"
+                                radius: [20]
+                                size_hint_x: None
+                                width: "50dp"
+
+                                MDButtonText:
+                                    id: repeat2_label
+                                    text: ""
+
+                            MDButton:
+                                id: repeat_every_unit
+                                style: "tonal"
+                                size_hint_x: None
+                                width: "80dp"
+                                halign: "center"
+
+                                MDButtonText:
+                                    id: repeat_every_unit_label
+                                    text: "DAY"                          
+
+                MDDivider:
+                    height: "1dp"
+                    size_hint_x: 1
+                    md_bg_color: 0.8, 0.8, 0.8, 1
+
+                # 💊 Medication Details
+                MDBoxLayout:
+                    orientation: "vertical"
+                    size_hint_y: None
+                    height: self.minimum_height
+                    padding: "8dp", "4dp"
+                    spacing: "4dp"
+
+                    MDLabel:
+                        text: "Medication Details (Optional)"
+                        bold: True
+                        font_size: "18sp"
+                        theme_text_color: "Primary"
+                        halign: "left"
+                        size_hint_y: None
+                        height: self.texture_size[1]
+
+                    MDTextField:
+                        id: medication_box
+                        disabled: True
+                        multiline: True
+                        hint_text: "Describe how/when to take it, warnings, or special notes"
+                        mode: "outlined"
+                        size_hint_y: None
+                        height: "80dp"
+
+
+                # ➕ 🚫 EDIT & CANCEL Button Section
+                MDBoxLayout:
+                    orientation: "horizontal"
+                    size_hint_y: None
+                    height: "60dp"
+                    spacing: "16dp"
+                    padding: "8dp", "8dp"
+                    pos_hint: {"center_x":  0.5}
+                    size_hint_x: None
+                    width: self.minimum_width  # 🧠 Only take up as much width as needed
+
+                    MDButton:
+                        style: "tonal"
+                        md_bg_color: 0.8, 0.2, 0.2, 1
+                        size_hint: None, None
+                        width: "130dp"
+                        height: "50dp"
+                        on_release: root.manager.current = "home"
+
+                        MDButtonIcon:
+                            icon: "close"
+                        MDButtonText:
+                            text: "Cancel"
+
+                    MDButton:
+                        style: "tonal"
+                        md_bg_color: 0.2, 0.6, 1, 1
+                        size_hint: None, None
+                        width: "130dp"
+                        height: "50dp"
+                        on_release: root.goto_edit()
+
+                        MDButtonIcon:
+                            icon: "pencil"
+                        MDButtonText:
+                            text: "Edit"
