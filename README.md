@@ -45,7 +45,8 @@ Tapping the large plus button at the bottom of the screen will bring you to the 
 - (Optional) Add Notes: Include any special instructions, timing, or warnings under “Medication Details.”
 - The Cancel button (along with the arrow at the very top left) will return you to the home page. Press the Add button after you’ve made all necessary selections and you will be returned to the home screen where you can see your new medication.
 
-#### Demo Videos: ####
+#### Demonstration Videos ####
+
 Login & Sign-Up:
 https://github.com/user-attachments/assets/27dc092d-5e2e-49da-8115-c2f307caa4b7
 
@@ -57,6 +58,8 @@ https://github.com/user-attachments/assets/309e5c98-568e-42fd-91ee-1bd594f7e7d9
 
 Calendar View: 
 https://github.com/user-attachments/assets/67ccbc7e-8739-4c91-9d0f-461c6db850d9
+
+🌟 Our full human factors report and design breakdown is also included in the repo if you'd like to learn more about our project's methodology and development process.
 
 ### Creators ###
 * Taylor Gilg
