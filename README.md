@@ -1,5 +1,3 @@
-# README #
-
 ### What is RefillRadar? ###
 RefillRadar is a mobile-friendly app designed to help users manage prescriptions refills and set custom medication reminders based on the calculated end of a medication's supply. 
 
@@ -45,7 +43,20 @@ Tapping the large plus button at the bottom of the screen will bring you to the 
 - Indicate Start of Medication*: If you take your medication on an hourly basis, enter the time of your first dosage taken, otherwise enter the date of your first dosage (one or the other is required). 
 - Indicate your Reminder Preferences*: The first line of input is to schedule the first notification that will remind you of your ending supply. The second line indicates how many secondary notifications you want and the interval of time between them. 
 - (Optional) Add Notes: Include any special instructions, timing, or warnings under “Medication Details.”
-- The Cancel button (along with the arrow at the very top left) will return you to the home page. Press the Add button after you’ve made all necessary selections and you will be returned to the home screen where you can see your new medication. 
+- The Cancel button (along with the arrow at the very top left) will return you to the home page. Press the Add button after you’ve made all necessary selections and you will be returned to the home screen where you can see your new medication.
+
+#### Demo Videos: ####
+Login & Sign-Up:
+https://github.com/user-attachments/assets/27dc092d-5e2e-49da-8115-c2f307caa4b7
+
+Adding A Prescription:
+https://github.com/user-attachments/assets/dfff8d2d-3132-4817-a013-f2b95aa1945d
+
+Inspect & Edit Medication Information:
+https://github.com/user-attachments/assets/309e5c98-568e-42fd-91ee-1bd594f7e7d9
+
+Calendar View: 
+https://github.com/user-attachments/assets/67ccbc7e-8739-4c91-9d0f-461c6db850d9
 
 ### Creators ###
 * Taylor Gilg
